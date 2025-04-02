@@ -44,9 +44,12 @@ class Enrollment(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     enrollment_date = models.DateField(auto_now_add=True)
     grade = models.CharField(max_length=2, choices=GRADE_CHOICES, default='IP')
-
+    
+    def __str__(self):
+        return f"{self.student.first_name} (Course - {self.course.course_name})"
+    
 class Meta:
     unique_together = ('student', 'course')
 
     def __str__(self):
-        return f"{self.student.first_name} enrolled in {self.course.course_name}"
+        return f"{self.student.first_name} (Course - {self.course.course_name})"
